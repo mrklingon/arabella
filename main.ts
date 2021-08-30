@@ -10,9 +10,28 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.x += 5
 })
+function WallQ (mySprite: Sprite) {
+    if (mySprite.y >= Floor) {
+        return true
+    }
+    if (mySprite.y <= Ceiling) {
+        return true
+    }
+    if (mySprite.x <= West) {
+        return true
+    }
+    if (mySprite.x >= East) {
+        return true
+    }
+    return false
+}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += 5
 })
+let East = 0
+let West = 0
+let Ceiling = 0
+let Floor = 0
 let Ship: Sprite = null
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -140,10 +159,21 @@ Ship = sprites.create(assets.image`ship`, SpriteKind.ship)
 Ship.setPosition(23, 109)
 Ship.setVelocity(0, 0)
 Ship.setStayInScreen(true)
-let XTG = 0
-let XBG = 10
-let YLG = 0
-let YRG = 0
-forever(function () {
-	
+let YTG = 0
+let YBG = 3
+let XLG = 0
+let XRG = 0
+Floor = 109
+Ceiling = 10
+West = 10
+East = 150
+game.onUpdateInterval(500, function () {
+    if (WallQ(Ship)) {
+        Ship.setVelocity(0, 0)
+    } else {
+        Ship.vy += YBG
+        Ship.vy += -1 * YTG
+        Ship.vx += XRG
+        Ship.vx += -1 * XLG
+    }
 })
