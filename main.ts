@@ -52,12 +52,12 @@ function setScene (num: number) {
     // 
     if (num == 2) {
         scene.setBackgroundImage(assets.image`Moon`)
-        Ship.setPosition(74, 101)
+        Ship.setPosition(82, 93)
         Ship.setVelocity(0, 0)
         Ship.setStayInScreen(true)
         YTG = 3
         YBG = 0
-        XLG = 0
+        XLG = 3
         XRG = 0
         Floor = 109
         Ceiling = 10
@@ -73,11 +73,11 @@ function setScene (num: number) {
     // venus
     if (num == 3) {
         scene.setBackgroundImage(assets.image`Venus`)
-        Ship.setPosition(141, 58)
+        Ship.setPosition(66, 9)
         Ship.setVelocity(0, 0)
         Ship.setStayInScreen(true)
         YTG = 0
-        YBG = 0
+        YBG = 3
         XLG = 3
         XRG = 0
         Floor = 109
@@ -90,10 +90,10 @@ function setScene (num: number) {
     // mars
     if (num == 4) {
         scene.setBackgroundImage(assets.image`Mars`)
-        Ship.setPosition(22, 51)
+        Ship.setPosition(19, 35)
         Ship.setVelocity(0, 0)
         Ship.setStayInScreen(true)
-        YTG = 0
+        YTG = 3
         YBG = 0
         XLG = 0
         XRG = 3
