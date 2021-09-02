@@ -6,10 +6,19 @@ namespace SpriteKind {
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += -5
 })
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    cannonball = sprites.create(assets.image`cannonball`, SpriteKind.Projectile)
+    cannonball.setPosition(Ship.x, Ship.x)
+    cannonball.setVelocity(10 * Ship.vx, 10 * Ship.vy)
+    pause(1000)
+    cannonball.destroy()
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     cannonball = sprites.create(assets.image`cannonball`, SpriteKind.Projectile)
     cannonball.setPosition(Ship.x, Ship.x)
-    cannonball.follow(Villain, 200)
+    cannonball.follow(Villain, 400)
+    pause(1000)
+    cannonball.destroy()
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += -5
@@ -26,13 +35,15 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += 5
 })
 function mkFrench () {
-    for (let index = 0; index < randint(0, 2); index++) {
-        Villain = sprites.create(assets.image`French`, SpriteKind.Enemy)
-        Villain.follow(Ship, 10)
-        Villain.setPosition(randint(0, 100), randint(30, 50))
-        Villain.setFlag(SpriteFlag.AutoDestroy, true)
-    }
+    Villain = sprites.create(assets.image`French`, SpriteKind.Enemy)
+    Villain.follow(Ship, 10)
+    Villain.setPosition(randint(0, 100), randint(30, 50))
+    Villain.setFlag(SpriteFlag.AutoDestroy, true)
 }
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.debris, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    info.changeScoreBy(5)
+})
 sprites.onOverlap(SpriteKind.debris, SpriteKind.ship, function (sprite, otherSprite) {
     sprite.destroy()
     info.changeLifeBy(-1)
