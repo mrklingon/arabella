@@ -1,15 +1,43 @@
 namespace SpriteKind {
     export const ship = SpriteKind.create()
     export const border = SpriteKind.create()
+    export const debris = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += -5
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    cannonball = sprites.create(assets.image`cannonball`, SpriteKind.Projectile)
+    cannonball.setPosition(Ship.x, Ship.x)
+    cannonball.follow(Villain, 200)
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += -5
 })
+function mkRocks () {
+    for (let index = 0; index < randint(2, 5); index++) {
+        rock = sprites.create(Asteroids[randint(0, 3)], SpriteKind.debris)
+        rock.setVelocity(randint(-50, 50), randint(-50, 50))
+        rock.setPosition(randint(30, 50), randint(30, 50))
+        rock.setFlag(SpriteFlag.DestroyOnWall, true)
+    }
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += 5
+})
+function mkFrench () {
+    for (let index = 0; index < randint(0, 2); index++) {
+        Villain = sprites.create(assets.image`French`, SpriteKind.Enemy)
+        Villain.follow(Ship, 10)
+        Villain.setPosition(randint(0, 100), randint(30, 50))
+        Villain.setFlag(SpriteFlag.AutoDestroy, true)
+    }
+}
+sprites.onOverlap(SpriteKind.debris, SpriteKind.ship, function (sprite, otherSprite) {
+    sprite.destroy()
+    info.changeLifeBy(-1)
+    scene.cameraShake(4, 500)
+    music.knock.play()
 })
 function WallQ (mySprite: Sprite) {
     if (mySprite.y >= Floor) {
@@ -28,6 +56,10 @@ function WallQ (mySprite: Sprite) {
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += 5
+})
+sprites.onOverlap(SpriteKind.debris, SpriteKind.debris, function (sprite, otherSprite) {
+    sprite.destroy()
+    otherSprite.destroy()
 })
 function setScene (num: number) {
     clearBorders()
@@ -105,6 +137,10 @@ function setScene (num: number) {
         ToMoon.setPosition(4, 1)
     }
 }
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    info.changeScoreBy(5)
+})
 function clearBorders () {
     ToMars.setImage(assets.image`blah`)
     ToMoon.setImage(assets.image`blah`)
@@ -120,12 +156,23 @@ let East = 0
 let West = 0
 let Ceiling = 0
 let Floor = 0
+let rock: Sprite = null
+let Villain: Sprite = null
+let cannonball: Sprite = null
 let TopLondon: Sprite = null
 let ToVenus: Sprite = null
 let ToMars: Sprite = null
 let ToMoon: Sprite = null
 let BottomMoon: Sprite = null
 let Ship: Sprite = null
+let Asteroids: Image[] = []
+info.setLife(10)
+Asteroids = [
+assets.image`Asteroid1`,
+assets.image`Asteroid2`,
+assets.image`Asteroid1`,
+assets.image`Asteroid2`
+]
 Ship = sprites.create(assets.image`ship`, SpriteKind.ship)
 BottomMoon = sprites.create(assets.image`blah`, SpriteKind.border)
 ToMoon = sprites.create(assets.image`blah`, SpriteKind.border)
@@ -144,6 +191,8 @@ game.onUpdateInterval(500, function () {
     }
     if (Ship.overlapsWith(TopLondon)) {
         setScene(2)
+        mkFrench()
+        mkRocks()
         Ship.setPosition(129, 79)
         ToVenus.setImage(assets.image`Edge`)
         ToVenus.setPosition(3, 2)
@@ -158,11 +207,13 @@ game.onUpdateInterval(500, function () {
     }
     if (Ship.overlapsWith(ToVenus)) {
         setScene(3)
+        mkRocks()
         Ship.setPosition(129, 79)
         ToMoon.setImage(assets.image`Edge`)
         ToMoon.setPosition(148, 3)
     }
     if (Ship.overlapsWith(ToMars)) {
+        mkRocks()
         setScene(4)
         Ship.setPosition(33, 49)
         ToMoon.setImage(assets.image`Edge`)
@@ -170,6 +221,7 @@ game.onUpdateInterval(500, function () {
     }
     if (Ship.overlapsWith(ToMoon)) {
         setScene(2)
+        mkRocks()
         Ship.setPosition(129, 79)
         ToVenus.setImage(assets.image`Edge`)
         ToVenus.setPosition(3, 2)

@@ -39,6 +39,26 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Moon"
     },
+    "image8": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAALC7CwAAAAAAsMwLuwAAAACwzLu7AAAAALvMzLwLAAAAy8vMzLwAALDLu8vMvAAAsMy8y8wLAACwzMzMzLsAALDMzMzMuwAAALu7zLsLAAAAALC7CwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Asteroid1"
+    },
+    "image9": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAcHcHAAAAAABHRHcHAAAAAEdERHd3AAAAR0R3RHQAAHBHdEdEdAAAcER0R3R3AABwREREdAAAAHBHRER0BwAAAEdERHcHAAAAd3dEBwAAAABwB3cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Asteroid2"
+    },
+    "image7": {
+        "data": "hwQYABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACOCAAAAAAAAB4BAAAAAAAALgIAAAAAAADgAAAAAAAAAAAOAAAAAAAAAOAAAAAAAAAAng4AAAAAAO6ZDgAAAADgmZnuAAAAkJ6Zme4AAACQme7u4Q4AAJnpmZnuDgAAmZmZme7uAACZmenu4e4AkJnpnunu7gCQmZ6Z6e4OAJCZmZnp4Q4AmZnp7g7uAADp7p6ZCQ4AAJCZmZkAAAAAAAAAAAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "French"
+    },
+    "image10": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQEAAAAAABD/HwAAAAAAEP8fAAAAAAAQ/x8AAAAAAAARAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "cannonball"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",

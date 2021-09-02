@@ -781,6 +781,82 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 `;
+            case "image8":
+            case "Asteroid1":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . b b b b . . . . . 
+. . . . . b b b c c c b . . . . 
+. . b b b b c c c c c b . . . . 
+. . b c c c b b c c c b . . . . 
+. . b c c c c b b c c b b . . . 
+. . b b b c c b b c c c b . . . 
+. . . . b c c c c c c c b . . . 
+. . . b b c c c c c c b b . . . 
+. . . b b b c c c c c b . . . . 
+. . . . . b c c b b b b . . . . 
+. . . . . . b b . b b . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image9":
+            case "Asteroid2":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 7 7 7 7 . . . . . . . 
+. . 7 7 7 7 4 4 7 7 7 . . . . . 
+. 7 4 4 4 4 4 4 4 4 7 7 . . . . 
+. 7 4 4 4 4 4 4 4 4 7 7 . . . . 
+. 7 4 4 4 7 7 4 4 4 7 . . . . . 
+. 7 7 4 7 7 7 4 4 4 4 7 . . . . 
+. . 7 4 7 4 4 4 4 4 4 7 . . . . 
+. . 7 7 4 4 4 4 4 7 7 . . . . . 
+. . . 7 4 4 7 7 7 7 . . . . . . 
+. . . 7 4 4 7 . 7 7 . . . . . . 
+. . . 7 7 7 7 . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image7":
+            case "French":return img`
+....................99..
+.................9999e9.
+..............9999999e9.
+............999999999e9.
+............e99999e99e9.
+...........e99e99e99e99.
+...eee....e99e999e99e99.
+...812e...e99e99e999e99.
+...812.e.e999e99e999e9..
+........e9999e99eeee....
+.........eeee1ee1ee1ee..
+...........eeeeeeeeee...
+.............eeeeeee....
+...............eee......
+........................
+........................
+`;
+            case "image10":
+            case "cannonball":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . 1 1 1 . . . . . . . 
+. . . . . 1 f f f 1 . . . . . . 
+. . . . . 1 f f f 1 . . . . . . 
+. . . . . 1 f f f 1 . . . . . . 
+. . . . . . 1 1 1 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
         }
         return null;
     })
