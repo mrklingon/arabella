@@ -6,20 +6,6 @@ namespace SpriteKind {
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += -5
 })
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    cannonball = sprites.create(assets.image`cannonball`, SpriteKind.Projectile)
-    cannonball.setPosition(Ship.x, Ship.x)
-    cannonball.setVelocity(10 * Ship.vx, 10 * Ship.vy)
-    pause(1000)
-    cannonball.destroy()
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    cannonball = sprites.create(assets.image`cannonball`, SpriteKind.Projectile)
-    cannonball.setPosition(Ship.x, Ship.x)
-    cannonball.follow(Villain, 400)
-    pause(1000)
-    cannonball.destroy()
-})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += -5
 })
@@ -34,12 +20,6 @@ function mkRocks () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += 5
 })
-function mkFrench () {
-    Villain = sprites.create(assets.image`French`, SpriteKind.Enemy)
-    Villain.follow(Ship, 10)
-    Villain.setPosition(randint(0, 100), randint(30, 50))
-    Villain.setFlag(SpriteFlag.AutoDestroy, true)
-}
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.debris, function (sprite, otherSprite) {
     otherSprite.destroy()
     info.changeScoreBy(5)
@@ -148,10 +128,6 @@ function setScene (num: number) {
         ToMoon.setPosition(4, 1)
     }
 }
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    otherSprite.destroy()
-    info.changeScoreBy(5)
-})
 function clearBorders () {
     ToMars.setImage(assets.image`blah`)
     ToMoon.setImage(assets.image`blah`)
@@ -168,8 +144,6 @@ let West = 0
 let Ceiling = 0
 let Floor = 0
 let rock: Sprite = null
-let Villain: Sprite = null
-let cannonball: Sprite = null
 let TopLondon: Sprite = null
 let ToVenus: Sprite = null
 let ToMars: Sprite = null
@@ -202,7 +176,6 @@ game.onUpdateInterval(500, function () {
     }
     if (Ship.overlapsWith(TopLondon)) {
         setScene(2)
-        mkFrench()
         mkRocks()
         Ship.setPosition(129, 79)
         ToVenus.setImage(assets.image`Edge`)
