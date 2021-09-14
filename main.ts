@@ -219,6 +219,7 @@ let BottomMoon: Sprite = null
 let Ship: Sprite = null
 let Asteroids: Image[] = []
 let xr = 0
+game.splash("Navigate your ship from London to the Moon, Venus, and Mars. B tells you what cargo you carry for each desination.", "Drop off cargo, and pick up cargo to bring back to London. AVOID ASTEROIDS!")
 xr = 1
 setCargo()
 info.setLife(10)
