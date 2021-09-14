@@ -6,16 +6,28 @@ namespace SpriteKind {
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += -5
 })
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    Ship.say("cargo", 500)
+    pause(500)
+    Ship.say("London" + convertToText(cargo[1]), 1000)
+    pause(500)
+    Ship.say("Moon" + convertToText(cargo[2]), 1000)
+    pause(500)
+    Ship.say("Venus" + convertToText(cargo[3]), 1000)
+    pause(500)
+    Ship.say("Mars" + convertToText(cargo[4]), 1000)
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += -5
 })
 function mkRocks () {
-    for (let index = 0; index < randint(2, 5); index++) {
+    for (let index = 0; index < xr + randint(3, 7); index++) {
         rock = sprites.create(Asteroids[randint(0, 3)], SpriteKind.debris)
         rock.setVelocity(randint(-50, 50), randint(-50, 50))
         rock.setPosition(randint(30, 50), randint(30, 50))
         rock.setFlag(SpriteFlag.DestroyOnWall, true)
     }
+    xr = randint(0, 10)
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += 5
@@ -54,6 +66,7 @@ sprites.onOverlap(SpriteKind.debris, SpriteKind.debris, function (sprite, otherS
 })
 function setScene (num: number) {
     clearBorders()
+    Scene = num
     // earth
     if (num == 1) {
         scene.setBackgroundImage(assets.image`London`)
@@ -128,6 +141,55 @@ function setScene (num: number) {
         ToMoon.setPosition(4, 1)
     }
 }
+function setCargo () {
+    cargo = [
+    0,
+    0,
+    randint(0, 10),
+    randint(0, 10),
+    randint(0, 10)
+    ]
+}
+function chkDest () {
+    Location = ""
+    sx = Ship.x
+    sy = Ship.y
+    if (Scene == 1) {
+        if (sx < 40 && sy > 100) {
+            Location = "London"
+            info.changeScoreBy(cargo[Scene])
+            cargo[Scene] = 0
+            setCargo()
+        }
+    }
+    if (Scene == 2) {
+        if (sx < 40 && sy < 30) {
+            Location = "Moon"
+            info.changeScoreBy(cargo[Scene])
+            cargo[Scene] = 0
+            cargo[1] = randint(0, 10) + cargo[1]
+        }
+    }
+    if (Scene == 3) {
+        if (sx < 40 && sy > 69) {
+            Location = "Venus"
+            info.changeScoreBy(cargo[Scene])
+            cargo[Scene] = 0
+            cargo[1] = randint(0, 10) + cargo[1]
+        }
+    }
+    if (Scene == 4) {
+        if (sx > 120 && sy < 54) {
+            Location = "Mars"
+            info.changeScoreBy(cargo[Scene])
+            cargo[Scene] = 0
+            cargo[1] = randint(0, 10) + cargo[1]
+        }
+    }
+    if (Location != "") {
+        Ship.say(Location, 1000)
+    }
+}
 function clearBorders () {
     ToMars.setImage(assets.image`blah`)
     ToMoon.setImage(assets.image`blah`)
@@ -135,15 +197,20 @@ function clearBorders () {
     ToVenus.setImage(assets.image`blah`)
     BottomMoon.setImage(assets.image`blah`)
 }
+let sy = 0
+let sx = 0
+let Location = ""
 let XRG = 0
 let XLG = 0
 let YBG = 0
 let YTG = 0
+let Scene = 0
 let East = 0
 let West = 0
 let Ceiling = 0
 let Floor = 0
 let rock: Sprite = null
+let cargo: number[] = []
 let TopLondon: Sprite = null
 let ToVenus: Sprite = null
 let ToMars: Sprite = null
@@ -151,6 +218,9 @@ let ToMoon: Sprite = null
 let BottomMoon: Sprite = null
 let Ship: Sprite = null
 let Asteroids: Image[] = []
+let xr = 0
+xr = 1
+setCargo()
 info.setLife(10)
 Asteroids = [
 assets.image`Asteroid1`,
@@ -164,8 +234,12 @@ ToMoon = sprites.create(assets.image`blah`, SpriteKind.border)
 ToMars = sprites.create(assets.image`blah`, SpriteKind.border)
 ToVenus = sprites.create(assets.image`blah`, SpriteKind.border)
 TopLondon = sprites.create(assets.image`blah`, SpriteKind.border)
+let MarsIMG = sprites.create(assets.image`blah`, SpriteKind.border)
+let MoonIMG = sprites.create(assets.image`blah`, SpriteKind.border)
+let VenusIMG = sprites.create(assets.image`blah`, SpriteKind.border)
 setScene(1)
 game.onUpdateInterval(500, function () {
+    chkDest()
     if (WallQ(Ship)) {
         Ship.setVelocity(0, 0)
     } else {
@@ -182,6 +256,8 @@ game.onUpdateInterval(500, function () {
         ToVenus.setPosition(3, 2)
         ToMars.setImage(assets.image`Edge`)
         ToMars.setPosition(157, 0)
+        MoonIMG.setImage(assets.image`MoonPic`)
+        MoonIMG.setPosition(0, 0)
     }
     if (Ship.overlapsWith(BottomMoon)) {
         setScene(1)
