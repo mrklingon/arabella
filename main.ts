@@ -167,7 +167,8 @@ function chkDest () {
             Location = "Moon"
             info.changeScoreBy(cargo[Scene])
             cargo[Scene] = 0
-            cargo[1] = randint(0, 10) + cargo[1]
+            cargo[1] = NextLondon + cargo[1]
+            NextLondon = 0
         }
     }
     if (Scene == 3) {
@@ -175,7 +176,8 @@ function chkDest () {
             Location = "Venus"
             info.changeScoreBy(cargo[Scene])
             cargo[Scene] = 0
-            cargo[1] = randint(0, 10) + cargo[1]
+            cargo[1] = NextLondon + cargo[1]
+            NextLondon = 0
         }
     }
     if (Scene == 4) {
@@ -183,11 +185,14 @@ function chkDest () {
             Location = "Mars"
             info.changeScoreBy(cargo[Scene])
             cargo[Scene] = 0
-            cargo[1] = randint(0, 10) + cargo[1]
+            cargo[1] = NextLondon + cargo[1]
+            NextLondon = 0
         }
     }
     if (Location != "") {
         Ship.say(Location, 1000)
+    } else {
+        NextLondon = randint(5, 15)
     }
 }
 function clearBorders () {
@@ -211,6 +216,7 @@ let Ceiling = 0
 let Floor = 0
 let rock: Sprite = null
 let cargo: number[] = []
+let NextLondon = 0
 let TopLondon: Sprite = null
 let ToVenus: Sprite = null
 let ToMars: Sprite = null
@@ -219,7 +225,7 @@ let BottomMoon: Sprite = null
 let Ship: Sprite = null
 let Asteroids: Image[] = []
 let xr = 0
-game.splash("Navigate your ship from London to the Moon, Venus, and Mars. B tells you what cargo you carry for each desination.", "Drop off cargo, and pick up cargo to bring back to London. AVOID ASTEROIDS!")
+game.splash("Carry cargo to the Moon, Venus and Mars - and back to London!")
 xr = 1
 setCargo()
 info.setLife(10)
@@ -238,6 +244,7 @@ TopLondon = sprites.create(assets.image`blah`, SpriteKind.border)
 let MarsIMG = sprites.create(assets.image`blah`, SpriteKind.border)
 let MoonIMG = sprites.create(assets.image`blah`, SpriteKind.border)
 let VenusIMG = sprites.create(assets.image`blah`, SpriteKind.border)
+NextLondon = randint(5, 15)
 setScene(1)
 game.onUpdateInterval(500, function () {
     chkDest()
