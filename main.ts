@@ -227,6 +227,7 @@ let Asteroids: Image[] = []
 let xr = 0
 game.splash("Carry cargo to the Moon, Venus and Mars - and back to London!")
 xr = 1
+let first = 1
 setCargo()
 info.setLife(10)
 Asteroids = [
@@ -248,6 +249,12 @@ NextLondon = randint(5, 15)
 setScene(1)
 game.onUpdateInterval(500, function () {
     chkDest()
+    if (Ship.vx > 0) {
+        Ship.setImage(assets.image`ship`)
+    }
+    if (Ship.vx < 0) {
+        Ship.setImage(assets.image`ship1`)
+    }
     if (WallQ(Ship)) {
         Ship.setVelocity(0, 0)
     } else {
@@ -258,6 +265,10 @@ game.onUpdateInterval(500, function () {
     }
     if (Ship.overlapsWith(TopLondon)) {
         setScene(2)
+        if (1 == first) {
+            game.splash("Venus is to your left, Mars to your right")
+            first = 0
+        }
         mkRocks()
         Ship.setPosition(129, 79)
         ToVenus.setImage(assets.image`Edge`)
