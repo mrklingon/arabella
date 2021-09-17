@@ -17,6 +17,9 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     pause(500)
     Ship.say("Mars" + convertToText(cargo[4]), 1000)
 })
+function bounceShip () {
+    Ship.setVelocity(-3 * Ship.vx, -3 * Ship.vy)
+}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vx += -5
 })
@@ -24,8 +27,9 @@ function mkRocks () {
     for (let index = 0; index < xr + randint(3, 7); index++) {
         rock = sprites.create(Asteroids[randint(0, 3)], SpriteKind.debris)
         rock.setVelocity(randint(-50, 50), randint(-50, 50))
-        rock.setPosition(randint(30, 50), randint(30, 50))
+        rock.setPosition(randint(0, 140), randint(0, 120))
         rock.setFlag(SpriteFlag.DestroyOnWall, true)
+        pause(200)
     }
     xr = randint(0, 10)
 }
@@ -165,6 +169,7 @@ function chkDest () {
     if (Scene == 2) {
         if (sx < 40 && sy < 30) {
             Location = "Moon"
+            bounceShip()
             info.changeScoreBy(cargo[Scene])
             cargo[Scene] = 0
             cargo[1] = NextLondon + cargo[1]
@@ -174,6 +179,7 @@ function chkDest () {
     if (Scene == 3) {
         if (sx < 40 && sy > 69) {
             Location = "Venus"
+            bounceShip()
             info.changeScoreBy(cargo[Scene])
             cargo[Scene] = 0
             cargo[1] = NextLondon + cargo[1]
@@ -183,6 +189,7 @@ function chkDest () {
     if (Scene == 4) {
         if (sx > 120 && sy < 54) {
             Location = "Mars"
+            bounceShip()
             info.changeScoreBy(cargo[Scene])
             cargo[Scene] = 0
             cargo[1] = NextLondon + cargo[1]
