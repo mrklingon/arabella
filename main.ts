@@ -2,20 +2,21 @@ namespace SpriteKind {
     export const ship = SpriteKind.create()
     export const border = SpriteKind.create()
     export const debris = SpriteKind.create()
+    export const voice = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Ship.vy += -5
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    Ship.say("cargo", 500)
+    shipv.say("cargo", 500)
     pause(500)
-    Ship.say("London" + convertToText(cargo[1]), 1000)
+    shipv.say("London" + convertToText(cargo[1]), 1000)
     pause(500)
-    Ship.say("Moon" + convertToText(cargo[2]), 1000)
+    shipv.say("Moon" + convertToText(cargo[2]), 1000)
     pause(500)
-    Ship.say("Venus" + convertToText(cargo[3]), 1000)
+    shipv.say("Venus" + convertToText(cargo[3]), 1000)
     pause(500)
-    Ship.say("Mars" + convertToText(cargo[4]), 1000)
+    shipv.say("Mars" + convertToText(cargo[4]), 1000)
 })
 function bounceShip () {
     Ship.setVelocity(-3 * Ship.vx, -3 * Ship.vy)
@@ -89,7 +90,6 @@ function setScene (num: number) {
         TopLondon.setPosition(71, 3)
     }
     // moon
-    // 
     if (num == 2) {
         scene.setBackgroundImage(assets.image`Moon`)
         Ship.setPosition(82, 93)
@@ -197,7 +197,7 @@ function chkDest () {
         }
     }
     if (Location != "") {
-        Ship.say(Location, 1000)
+        shipv.say(Location, 500)
     } else {
         NextLondon = randint(5, 15)
     }
@@ -229,6 +229,7 @@ let ToVenus: Sprite = null
 let ToMars: Sprite = null
 let ToMoon: Sprite = null
 let BottomMoon: Sprite = null
+let shipv: Sprite = null
 let Ship: Sprite = null
 let Asteroids: Image[] = []
 let xr = 0
@@ -244,6 +245,7 @@ assets.image`Asteroid1`,
 assets.image`Asteroid2`
 ]
 Ship = sprites.create(assets.image`ship`, SpriteKind.ship)
+shipv = sprites.create(assets.image`blah`, SpriteKind.voice)
 BottomMoon = sprites.create(assets.image`blah`, SpriteKind.border)
 ToMoon = sprites.create(assets.image`blah`, SpriteKind.border)
 ToMars = sprites.create(assets.image`blah`, SpriteKind.border)
@@ -272,10 +274,6 @@ game.onUpdateInterval(500, function () {
     }
     if (Ship.overlapsWith(TopLondon)) {
         setScene(2)
-        if (1 == first) {
-            game.splash("Venus is to your left, Mars to your right")
-            first = 0
-        }
         mkRocks()
         Ship.setPosition(129, 79)
         ToVenus.setImage(assets.image`Edge`)
