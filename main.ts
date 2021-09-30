@@ -29,7 +29,7 @@ function mkRocks () {
         rock = sprites.create(Asteroids[randint(0, 3)], SpriteKind.debris)
         rock.setVelocity(randint(-50, 50), randint(-50, 50))
         rock.setPosition(randint(0, 140), randint(0, 120))
-        rock.setFlag(SpriteFlag.DestroyOnWall, true)
+        rock.setFlag(SpriteFlag.AutoDestroy, true)
         pause(200)
     }
     xr = randint(0, 10)
